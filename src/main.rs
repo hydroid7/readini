@@ -6,7 +6,7 @@ fn main() {
 
     let args: Vec<String> = env::args().collect();
 
-    if args.len() != 4 {
+    if args.len() <= 3 {
         println!("No arguments supplied. \nUsage: \n    {} /path/to/ini <section> <key> [optional default]", args[0]);
         exit(0);
     }
@@ -23,7 +23,13 @@ fn main() {
         let default = &args[4];
         ini_config.get_from_or(Option::Some(section), key, default)
     } else {
-        ini_config.get_from(Option::Some(section), key).unwrap()
+        match ini_config.get_from(Option::Some(section), key) {
+            Some(val) => val,
+            None => {
+                eprintln!("\"{} > {}\" not found in \"{}\"", section, key, ini_path);
+                ""
+            }
+        }
     };
     print!("{}", value);
 }

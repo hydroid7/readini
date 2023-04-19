@@ -1,9 +1,18 @@
 [package]
 name = "readini-rs"
 version = "0.1.0"
+authors = ["hydroid7 <meszlenyilorant@gmail.com>"]
 edition = "2021"
+license = "MPL 2.0"
 
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+[[bin]]
+name = "readini"
+path = "src/main.rs"
 
 [dependencies]
 rust-ini = "0.18.0"
+
+[package.metadata.deb]
+name = "readini"
+license-file = "LICENSE"
+extended-description = "Command line utility for reading values from INI files."
